@@ -1,3 +1,6 @@
 /jars/
 /natives/
-/.classpath /.project
+
+/.classpath
+/.project
+/bin/
