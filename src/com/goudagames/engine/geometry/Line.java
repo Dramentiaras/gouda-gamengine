@@ -11,4 +11,14 @@ public class Line {
 		this.v0 = v0;
 		this.v1 = v1;
 	}
+	
+	public float length() {
+		
+		float x = v0.x - v1.x;
+		float y = v0.y - v1.y;
+		
+		float length = (float)Math.sqrt(x * x + y * y);
+		
+		return length;
+	}
 }

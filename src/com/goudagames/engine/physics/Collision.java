@@ -20,23 +20,20 @@ public class Collision {
 				result[Direction.LEFT.id] = true;
 				result[Direction.UP.id] = true;
 			}
-			
-			if (r1.down() > r2.down() && r1.down() < r2.up()) {
+			else if (r1.down() > r2.down() && r1.down() < r2.up()) {
 				
 				result[Direction.LEFT.id] = true;
 				result[Direction.DOWN.id] = true;
 			}
 		}
-		
-		if (r1.right() > r2.left() && r1.right() < r2.right()) {
+		else if (r1.right() > r2.left() && r1.right() < r2.right()) {
 			
 			if (r1.up() > r2.down() && r1.up() < r2.up()) {
 				
 				result[Direction.RIGHT.id] = true;
 				result[Direction.UP.id] = true;
 			}
-			
-			if (r1.down() > r2.down() && r1.down() < r2.up()) {
+			else if (r1.down() > r2.down() && r1.down() < r2.up()) {
 				
 				result[Direction.RIGHT.id] = true;
 				result[Direction.DOWN.id] = true;
