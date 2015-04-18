@@ -4,9 +4,11 @@ import java.util.HashMap;
 
 import org.lwjgl.opengl.GL11;
 
+import com.goudagames.engine.audio.ALSystem;
+
 public class Resource {
 
-	public static final int TEXTURE = 0;
+	public static final int TEXTURE = 0, AUDIO = 1;
 	
 	public static final int NAME = 0, MAG_FILTER = 1, MIN_FILTER = 2;
 
@@ -51,6 +53,9 @@ public class Resource {
 						(int)get(MAG_FILTER), (int)get(MIN_FILTER));
 				loaded = true;
 				break;
+			}
+			case AUDIO: {
+				ALSystem.load(path, (String)get(NAME));
 			}
 		}
 	}

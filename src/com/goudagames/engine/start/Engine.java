@@ -13,6 +13,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.PixelFormat;
 
 import com.goudagames.engine.assets.AssetLoader;
+import com.goudagames.engine.audio.ALSystem;
 import com.goudagames.engine.handler.gui.GuiHandler;
 import com.goudagames.engine.logging.Log;
 import com.goudagames.engine.loop.GameLoop;
@@ -84,6 +85,7 @@ public class Engine {
 		}
 		
 		RenderEngine.init();
+		ALSystem.initAL();
 		GuiHandler.init();
 		
 		for (AssetLoader loader : assetLoaders) {
@@ -93,6 +95,7 @@ public class Engine {
 		
 		setState(s);
 		
+		Time.init();
 		loop.start();
 	}
 	
@@ -120,6 +123,7 @@ public class Engine {
 	public static void destroy() {
 		
 		RenderEngine.instance().destroy();
+		ALSystem.destroy();
 		Display.destroy();
 		Keyboard.destroy();
 		Mouse.destroy();

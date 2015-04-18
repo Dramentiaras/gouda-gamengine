@@ -17,11 +17,11 @@ public class Log {
 	
 	public static void destroy() {
 		
-		File logFile = new File(path);
+		/*File logFile = new File(path);
 		
 		if (logFile.exists()) {
 			logFile.delete();
-		}
+		}*/
 	}
 	
 	public static void init() {
