@@ -97,14 +97,19 @@ public class GuiScreen extends GuiBase {
 			
 			o.update();
 			
-			if (Input.buttonPressed(0)) {
+			Vector2f mPos = Input.mousePos();
+			
+			if (o.getBounds().isPointInside(mPos)) {
+			
+				o.hover = true;
 				
-				Vector2f mPos = Input.mousePos();
-				
-				if (o.getBounds().isPointInside(mPos)) {
-				
+				if (Input.buttonPressed(0)) {
 					o.onClick(mPos);
 				}
+			}
+			else {
+				
+				o.hover = false;
 			}
 		}
 	}

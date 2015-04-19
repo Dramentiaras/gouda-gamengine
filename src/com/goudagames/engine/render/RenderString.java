@@ -48,7 +48,7 @@ public class RenderString extends RenderBase {
 	public float getStringWidth(float size) {
 		
 		float scale = size / iconHeight;
-		return scale * iconWidth * text.length() - padding * (text.length() - 1);
+		return scale * iconHeight * text.length() - padding * (text.length() - 1);
 	}
 
 	@Override
