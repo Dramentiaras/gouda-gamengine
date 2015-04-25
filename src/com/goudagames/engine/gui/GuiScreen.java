@@ -13,6 +13,8 @@ public class GuiScreen extends GuiBase {
 
 	boolean renderDefaultBackground = true;
 	ArrayList<GuiObject> objects = new ArrayList<GuiObject>();
+	ArrayList<GuiObject> additions = new ArrayList<GuiObject>();
+	ArrayList<GuiObject> removals = new ArrayList<GuiObject>();
 	
 	public GuiScreen(boolean defaultBG) {
 		
@@ -35,12 +37,12 @@ public class GuiScreen extends GuiBase {
 	
 	public void addGuiObject(GuiObject o) {
 		
-		objects.add(o);
+		additions.add(o);
 	}
 	
 	public void removeGuiObject(GuiObject o) {
 		
-		objects.remove(o);
+		removals.add(o);
 	}
 	
 	public boolean shouldRenderDefaultBackground() {
@@ -57,6 +59,7 @@ public class GuiScreen extends GuiBase {
 		
 		RenderQuad quad = new RenderQuad();
 		
+		quad.useCamera = false;
 		quad.position = new Vector2f(Display.getWidth() / 2f, Display.getHeight() / 2f);
 		quad.size = new Vector2f(Display.getWidth(), Display.getHeight());
 		quad.color = new Color(0f, 0f, 0f, 0.5f);
@@ -112,5 +115,18 @@ public class GuiScreen extends GuiBase {
 				o.hover = false;
 			}
 		}
+		
+		for (GuiObject o : additions) {
+			
+			objects.add(o);
+		}
+		
+		for (GuiObject o : removals) {
+			
+			objects.remove(o);
+		}
+		
+		additions.clear();
+		removals.clear();
 	}
 }

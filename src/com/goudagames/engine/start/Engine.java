@@ -2,6 +2,7 @@ package com.goudagames.engine.start;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
 
 import org.lwjgl.input.Controllers;
 import org.lwjgl.input.Keyboard;
@@ -20,6 +21,7 @@ import com.goudagames.engine.loop.GameLoop;
 import com.goudagames.engine.loop.Loop;
 import com.goudagames.engine.render.RenderEngine;
 import com.goudagames.engine.state.GameState;
+import com.goudagames.engine.util.ExceptionUtil;
 import com.goudagames.engine.util.Time;
 
 public class Engine {
@@ -40,6 +42,11 @@ public class Engine {
 	public static void addAssetLoader(AssetLoader loader) {
 		
 		assetLoaders.add(loader);
+	}
+	
+	public static void stop() {
+		
+		loop.stop();
 	}
 	
 	public static void start(String s, int width, int height) {
@@ -78,25 +85,25 @@ public class Engine {
 			Mouse.create();
 			Keyboard.create();
 			Controllers.create();
-		}
-		catch (Exception ex) {
+		
+			RenderEngine.init();
+			ALSystem.initAL();
+			GuiHandler.init();
 			
-			ex.printStackTrace();
-		}
-		
-		RenderEngine.init();
-		ALSystem.initAL();
-		GuiHandler.init();
-		
-		for (AssetLoader loader : assetLoaders) {
+			for (AssetLoader loader : assetLoaders) {
+				
+				loader.load(true);
+			}
 			
-			loader.load(true);
+			setState(s);
+			
+			Time.init();
+			loop.start();
+		
+		}catch (Exception ex) {
+			
+			Log.log(Level.SEVERE, ExceptionUtil.getStackTrace(ex));
 		}
-		
-		setState(s);
-		
-		Time.init();
-		loop.start();
 	}
 	
 	public static void update() {
@@ -122,6 +129,9 @@ public class Engine {
 	
 	public static void destroy() {
 		
+		if (state != null) {
+			state.destroy();
+		}
 		RenderEngine.instance().destroy();
 		ALSystem.destroy();
 		Display.destroy();
