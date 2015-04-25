@@ -7,7 +7,7 @@ import org.lwjgl.util.vector.Vector2f;
 
 import com.goudagames.engine.color.Color;
 import com.goudagames.engine.input.Input;
-import com.goudagames.engine.render.RenderQuad;
+import com.goudagames.engine.render.object.RenderQuad;
 
 public class GuiScreen extends GuiBase {
 
@@ -59,7 +59,7 @@ public class GuiScreen extends GuiBase {
 		
 		RenderQuad quad = new RenderQuad();
 		
-		quad.useCamera = false;
+		quad.view = false;
 		quad.position = new Vector2f(Display.getWidth() / 2f, Display.getHeight() / 2f);
 		quad.size = new Vector2f(Display.getWidth(), Display.getHeight());
 		quad.color = new Color(0f, 0f, 0f, 0.5f);

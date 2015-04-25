@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import org.lwjgl.opengl.GL11;
 
-import com.goudagames.engine.audio.ALSystem;
+import com.goudagames.engine.system.ALSystem;
 
 public class Resource {
 

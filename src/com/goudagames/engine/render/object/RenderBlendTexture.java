@@ -1,4 +1,4 @@
-package com.goudagames.engine.render;
+package com.goudagames.engine.render.object;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
@@ -13,6 +13,9 @@ import org.lwjgl.util.vector.Vector2f;
 
 import com.goudagames.engine.assets.Texture;
 import com.goudagames.engine.color.Color;
+import com.goudagames.engine.render.BlendMode;
+import com.goudagames.engine.render.Program;
+import com.goudagames.engine.system.GLSystem;
 import com.goudagames.engine.util.Vertex;
 
 public class RenderBlendTexture extends RenderBase {
@@ -21,7 +24,7 @@ public class RenderBlendTexture extends RenderBase {
 	Vector2f[] texCoords;
 	public Vector2f size = new Vector2f();
 	static int vboi = -1;
-	public boolean useCamera = true;
+	public boolean view = true;
 	
 	boolean ignoreAlpha = false;
 	
@@ -138,11 +141,11 @@ public class RenderBlendTexture extends RenderBase {
 		
 		switch (mode) {
 		
-			case BlendModes.MULTIPLY: {
+			case BlendMode.MULTIPLY: {
 				program = Program.MULTIPLY;
 				return;
 			}
-			case BlendModes.ADD: {
+			case BlendMode.ADD: {
 				program = Program.ADD;
 				return;
 			}
@@ -169,7 +172,7 @@ public class RenderBlendTexture extends RenderBase {
 		}
 		vertexBuffer.flip();
 		
-		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, RenderEngine.instance().getVBO());
+		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, GLSystem.instance().getVBO());
 		GL15.glBufferData(GL15.GL_ARRAY_BUFFER, vertexBuffer, GL15.GL_STATIC_DRAW);
 		GL20.glVertexAttribPointer(0, Vertex.positionElementCount, GL11.GL_FLOAT, false, Vertex.stride + Vertex.textureByteCount, Vertex.positionByteOffset);
 		GL20.glVertexAttribPointer(1, Vertex.colorElementCount, GL11.GL_FLOAT, false, Vertex.stride + Vertex.textureByteCount, Vertex.colorByteOffset);
@@ -182,12 +185,12 @@ public class RenderBlendTexture extends RenderBase {
 		translate(position);
 		scale(size);
 		
-		RenderEngine.instance().setProjectionUniform(program.getUniformLocation("projection"));
+		GLSystem.instance().setProjectionUniform(program.getUniformLocation("projection"));
 		setModelUniform(program.getUniformLocation("model"));
 		
-		if (useCamera) {
+		if (view) {
 			
-			RenderEngine.instance().setCameraUniform(Program.TEXTURE.getUniformLocation("view"));
+			GLSystem.instance().setCameraUniform(Program.TEXTURE.getUniformLocation("view"));
 		}
 		else {
 			

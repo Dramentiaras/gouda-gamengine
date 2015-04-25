@@ -1,4 +1,4 @@
-package com.goudagames.engine.render;
+package com.goudagames.engine.render.object;
 
 import org.lwjgl.util.vector.Vector2f;
 
@@ -13,7 +13,7 @@ public class RenderString extends RenderBase {
 	private String texture;
 	
 	public boolean centered = false;
-	public boolean useCamera = true;
+	public boolean view = true;
 	
 	public RenderString(String text, String texture) {
 		
@@ -77,7 +77,7 @@ public class RenderString extends RenderBase {
 			float mod = padding * i;
 			
 			RenderTexturedQuad quad = new RenderTexturedQuad(TextureLibrary.get(texture));
-			quad.useCamera = useCamera;
+			quad.view = view;
 			
 			quad.translate(new Vector2f(pos.x + width * scale / 2f + i * width * scale + mod, pos.y + height * scale / 2f));
 			quad.size = new Vector2f(width * scale, height * scale);

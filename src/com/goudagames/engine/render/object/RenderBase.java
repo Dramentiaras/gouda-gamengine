@@ -1,4 +1,4 @@
-package com.goudagames.engine.render;
+package com.goudagames.engine.render.object;
 
 import java.nio.FloatBuffer;
 

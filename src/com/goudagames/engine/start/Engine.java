@@ -14,13 +14,13 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.PixelFormat;
 
 import com.goudagames.engine.assets.AssetLoader;
-import com.goudagames.engine.audio.ALSystem;
 import com.goudagames.engine.handler.gui.GuiHandler;
 import com.goudagames.engine.logging.Log;
 import com.goudagames.engine.loop.GameLoop;
 import com.goudagames.engine.loop.Loop;
-import com.goudagames.engine.render.RenderEngine;
 import com.goudagames.engine.state.GameState;
+import com.goudagames.engine.system.ALSystem;
+import com.goudagames.engine.system.GLSystem;
 import com.goudagames.engine.util.ExceptionUtil;
 import com.goudagames.engine.util.Time;
 
@@ -86,7 +86,7 @@ public class Engine {
 			Keyboard.create();
 			Controllers.create();
 		
-			RenderEngine.init();
+			GLSystem.init();
 			ALSystem.initAL();
 			GuiHandler.init();
 			
@@ -132,7 +132,7 @@ public class Engine {
 		if (state != null) {
 			state.destroy();
 		}
-		RenderEngine.instance().destroy();
+		GLSystem.instance().destroy();
 		ALSystem.destroy();
 		Display.destroy();
 		Keyboard.destroy();

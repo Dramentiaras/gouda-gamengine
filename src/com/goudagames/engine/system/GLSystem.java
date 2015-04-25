@@ -1,4 +1,4 @@
-package com.goudagames.engine.render;
+package com.goudagames.engine.system;
 
 import java.nio.FloatBuffer;
 
@@ -10,12 +10,15 @@ import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 import org.lwjgl.util.vector.Matrix4f;
 
+import com.goudagames.engine.render.Camera;
+import com.goudagames.engine.render.FrameBufferObject;
+import com.goudagames.engine.render.Program;
 import com.goudagames.engine.shader.ShaderLoader;
 import com.goudagames.engine.util.Vertex;
 
-public class RenderEngine {
+public class GLSystem {
 
-	private static RenderEngine instance;
+	private static GLSystem instance;
 	static boolean initiated = false;
 	
 	private int vaoID = 0;
@@ -29,18 +32,18 @@ public class RenderEngine {
 	
 	private FrameBufferObject curFBO = null;
 	
-	public static RenderEngine instance() {
+	public static GLSystem instance() {
 		return instance;
 	}
 	
 	/**
-	 * Initiates the render engine. Should not be called, use Engine.start() instead.
+	 * Initiates the gl system. Should not be called, use Engine.start() instead.
 	 */
 	public static void init() {
 		
 		if (!initiated) {
 			
-			instance = new RenderEngine();
+			instance = new GLSystem();
 			initiated = true;
 		}
 	}
@@ -305,7 +308,7 @@ public class RenderEngine {
 		projection.m33 = 1f;
 	}
 	
-	private RenderEngine() {
+	private GLSystem() {
 		
 		ortho(0, Display.getWidth(), 0, Display.getHeight(), -1, 1);
 		setDefaultProjection();

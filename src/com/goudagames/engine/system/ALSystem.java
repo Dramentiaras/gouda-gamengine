@@ -1,4 +1,4 @@
-package com.goudagames.engine.audio;
+package com.goudagames.engine.system;
 
 import java.io.BufferedInputStream;
 import java.nio.FloatBuffer;

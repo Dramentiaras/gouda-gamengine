@@ -1,4 +1,4 @@
-package com.goudagames.engine.render;
+package com.goudagames.engine.render.object;
 
 import org.lwjgl.util.vector.Vector2f;
 
@@ -12,6 +12,7 @@ public class RenderTexturedLine extends RenderBase {
 	public Vector2f v0, v1;
 	public Color color1;
 	public float width = 1f;
+	public boolean view = true;
 	
 	Texture texture;
 	
@@ -73,6 +74,7 @@ public class RenderTexturedLine extends RenderBase {
 		Vertex vert3 = new Vertex().setXY(d.x, d.y).setColor(color1).setUV(1f, 0f);
 		
 		RenderTexturedQuad quad = new RenderTexturedQuad(texture, new Vertex[] {vert0, vert2, vert3, vert1});
+		quad.view = view;
 		
 		quad.render();
 	}

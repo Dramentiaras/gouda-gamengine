@@ -1,4 +1,4 @@
-package com.goudagames.engine.render;
+package com.goudagames.engine.render.object;
 
 import java.nio.FloatBuffer;
 
@@ -11,13 +11,15 @@ import org.lwjgl.util.vector.Vector2f;
 
 import com.goudagames.engine.color.Color;
 import com.goudagames.engine.geometry.Rectangle;
+import com.goudagames.engine.render.Program;
+import com.goudagames.engine.system.GLSystem;
 import com.goudagames.engine.util.Vertex;
 
 public class RenderQuadOutline extends RenderBase {
 
 	Vertex[] quad;
 	public Vector2f size = new Vector2f(1f, 1f);
-	public boolean useCamera = true;
+	public boolean view = true;
 	
 	boolean setArray = false;
 	
@@ -58,7 +60,7 @@ public class RenderQuadOutline extends RenderBase {
 		}
 		vertexBuffer.flip();
 		
-		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, RenderEngine.instance().getVBO());
+		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, GLSystem.instance().getVBO());
 		GL15.glBufferData(GL15.GL_ARRAY_BUFFER, vertexBuffer, GL15.GL_STATIC_DRAW);
 		GL20.glVertexAttribPointer(0, Vertex.positionElementCount, GL11.GL_FLOAT, false, Vertex.stride, Vertex.positionByteOffset);
 		GL20.glVertexAttribPointer(1, Vertex.colorElementCount, GL11.GL_FLOAT, false, Vertex.stride, Vertex.colorByteOffset);
@@ -68,12 +70,12 @@ public class RenderQuadOutline extends RenderBase {
 		rotate(rotation);
 		scale(size);
 		
-		RenderEngine.instance().setProjectionUniform(Program.BASIC.getUniformLocation("projection"));
+		GLSystem.instance().setProjectionUniform(Program.BASIC.getUniformLocation("projection"));
 		setModelUniform(Program.BASIC.getUniformLocation("model"));
 		
-		if (useCamera) {
+		if (view) {
 			
-			RenderEngine.instance().setCameraUniform(Program.TEXTURE.getUniformLocation("view"));
+			GLSystem.instance().setCameraUniform(Program.TEXTURE.getUniformLocation("view"));
 		}
 		else {
 			

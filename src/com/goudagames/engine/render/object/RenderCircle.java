@@ -1,4 +1,4 @@
-package com.goudagames.engine.render;
+package com.goudagames.engine.render.object;
 
 import java.nio.FloatBuffer;
 
@@ -10,18 +10,21 @@ import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector2f;
 
 import com.goudagames.engine.color.Color;
+import com.goudagames.engine.render.Program;
+import com.goudagames.engine.system.GLSystem;
 import com.goudagames.engine.util.MathUtil;
 import com.goudagames.engine.util.Vertex;
 
-public class RenderCircleOutline extends RenderBase {
+public class RenderCircle extends RenderBase {
 
 	Vertex[] circle;
 	public float radius;
-	public boolean useCamera = true;
+	public boolean view = true;
 	
-	public RenderCircleOutline(int segments) {
+	public RenderCircle(int segments) {
 		
-		circle = new Vertex[segments];
+		circle = new Vertex[segments + 2];
+		circle[0] = new Vertex().setXY(0f, 0f).setColor(new Color()).setUV(0.5f, 0.5f);
 		
 		float theta = 2f * (float)Math.PI / (float)segments;
 		float tan_factor = MathUtil.tanf(theta);
@@ -30,7 +33,7 @@ public class RenderCircleOutline extends RenderBase {
 		float x = 0.5f;
 		float y = 0;
 		
-		for (int i = 0; i < circle.length; i++) {
+		for (int i = 1; i < circle.length - 1; i++) {
 			
 			circle[i] = new Vertex().setXY(x, y).setColor(new Color()).setUV(x + 0.5f, y + 0.5f);
 			
@@ -43,9 +46,11 @@ public class RenderCircleOutline extends RenderBase {
 			x *= rad_factor;
 			y *= rad_factor;
 		}
+		
+		circle[segments + 1] = circle[1];
 	}
 	
-	public RenderCircleOutline() {
+	public RenderCircle() {
 		
 		this(360);
 	}
@@ -69,7 +74,7 @@ public class RenderCircleOutline extends RenderBase {
 		}
 		vertices.flip();
 		
-		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, RenderEngine.instance().getVBO());
+		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, GLSystem.instance().getVBO());
 		GL15.glBufferData(GL15.GL_ARRAY_BUFFER, vertices, GL15.GL_STATIC_DRAW);
 		GL20.glVertexAttribPointer(0, Vertex.positionElementCount, GL11.GL_FLOAT, false, Vertex.stride, Vertex.positionByteOffset);
 		GL20.glVertexAttribPointer(1, Vertex.colorElementCount, GL11.GL_FLOAT, false, Vertex.stride, Vertex.colorByteOffset);
@@ -78,12 +83,12 @@ public class RenderCircleOutline extends RenderBase {
 		translate(position);
 		scale(new Vector2f(radius * 2f, radius * 2f));
 		
-		RenderEngine.instance().setProjectionUniform(Program.BASIC.getUniformLocation("projection"));
+		GLSystem.instance().setProjectionUniform(Program.BASIC.getUniformLocation("projection"));
 		setModelUniform(Program.BASIC.getUniformLocation("model"));
 		
-		if (useCamera) {
+		if (view) {
 			
-			RenderEngine.instance().setCameraUniform(Program.TEXTURE.getUniformLocation("view"));
+			GLSystem.instance().setCameraUniform(Program.TEXTURE.getUniformLocation("view"));
 		}
 		else {
 			
@@ -95,7 +100,7 @@ public class RenderCircleOutline extends RenderBase {
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
-		GL11.glDrawArrays(GL11.GL_LINE_LOOP, 0, circle.length);
+		GL11.glDrawArrays(GL11.GL_TRIANGLE_FAN, 0, circle.length);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		
 		setModelMatrix(new Matrix4f());

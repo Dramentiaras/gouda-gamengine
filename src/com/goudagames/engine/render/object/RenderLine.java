@@ -1,4 +1,4 @@
-package com.goudagames.engine.render;
+package com.goudagames.engine.render.object;
 
 import org.lwjgl.util.vector.Vector2f;
 
@@ -11,7 +11,7 @@ public class RenderLine extends RenderBase {
 	public Vector2f v0, v1;
 	public Color color1;
 	public float width = 1f;
-	public boolean useCamera = true;
+	public boolean view = true;
 	
 	public RenderLine(Vector2f v0, Vector2f v1) {
 		
@@ -57,6 +57,7 @@ public class RenderLine extends RenderBase {
 		Vertex vert3 = new Vertex().setXY(d.x, d.y).setColor(color1);
 		
 		RenderQuad quad = new RenderQuad(new Vertex[] {vert0, vert2, vert3, vert1});
+		quad.view = view;
 		
 		quad.render();
 	}
