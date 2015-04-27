@@ -11,5 +11,4 @@ public class GuiBase {
 	}
 	
 	public void onClick(Vector2f pos) {};
-	public void render() {};
 }

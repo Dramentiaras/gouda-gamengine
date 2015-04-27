@@ -14,7 +14,8 @@ public class GuiScreen extends GuiBase {
 
 	boolean renderDefaultBackground = true;
 	
-	public RenderObjectContainer container;
+	public RenderObjectContainer background;
+	public RenderObjectContainer foreground;
 	
 	ArrayList<GuiObject> objects = new ArrayList<GuiObject>();
 	ArrayList<GuiObject> additions = new ArrayList<GuiObject>();
@@ -24,8 +25,10 @@ public class GuiScreen extends GuiBase {
 		
 		super();
 		renderDefaultBackground = defaultBG;
-		container = new RenderObjectContainer();
-		container.view = false;
+		background = new RenderObjectContainer();
+		background.view = false;
+		foreground = new RenderObjectContainer();
+		foreground.view = false;
 	}
 	
 	public void init() {
@@ -73,19 +76,6 @@ public class GuiScreen extends GuiBase {
 		quad.render();
 	}
 	
-	public void renderBackground() {
-		
-	}
-	
-	public void renderForeground() {
-		
-		for (GuiObject o : objects) {
-			
-			o.render();
-		}
-	}
-	
-	@Override
 	public void render() {
 		
 		if (this.renderDefaultBackground) {
@@ -94,10 +84,10 @@ public class GuiScreen extends GuiBase {
 		}
 		else {
 			
-			renderBackground();
+			background.render();
 		}
 		
-		renderForeground();
+		foreground.render();
 	}
 	
 	public void update() {

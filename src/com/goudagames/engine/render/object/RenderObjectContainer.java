@@ -9,9 +9,9 @@ public class RenderObjectContainer {
 	public RenderObjectContainer parent;
 	private ArrayList<RenderObject> children;
 	
-	public float rotation;
-	public Vector2f offset;
-	public Vector2f position;
+	public float rotation = 0f;
+	public Vector2f offset = new Vector2f();
+	public Vector2f position = new Vector2f();
 	
 	public boolean view = true;
 	
