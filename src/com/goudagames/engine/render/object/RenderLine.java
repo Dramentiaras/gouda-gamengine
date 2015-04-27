@@ -4,18 +4,20 @@ import org.lwjgl.util.vector.Vector2f;
 
 import com.goudagames.engine.color.Color;
 import com.goudagames.engine.geometry.Line;
+import com.goudagames.engine.render.Program;
 import com.goudagames.engine.util.Vertex;
 
-public class RenderLine extends RenderBase {
+public class RenderLine extends RenderObject {
 
 	public Vector2f v0, v1;
 	public Color color1;
 	public float width = 1f;
-	public boolean view = true;
 	
 	public RenderLine(Vector2f v0, Vector2f v1) {
 		
 		super();
+		
+		program = Program.BASIC;
 		
 		color1 = new Color();
 		this.v0 = v0;
@@ -24,15 +26,13 @@ public class RenderLine extends RenderBase {
 	
 	public RenderLine(Line line) {
 		
-		super();
-		
-		color1 = new Color();
-		this.v0 = line.v0;
-		this.v1 = line.v1;
+		this(line.v0, line.v1);
 	}
 	
 	@Override
 	public void render() {
+		
+		super.render();
 		
 		Vector2f line = new Vector2f();
 		

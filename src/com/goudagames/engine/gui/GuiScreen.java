@@ -7,11 +7,15 @@ import org.lwjgl.util.vector.Vector2f;
 
 import com.goudagames.engine.color.Color;
 import com.goudagames.engine.input.Input;
+import com.goudagames.engine.render.object.RenderObjectContainer;
 import com.goudagames.engine.render.object.RenderQuad;
 
 public class GuiScreen extends GuiBase {
 
 	boolean renderDefaultBackground = true;
+	
+	public RenderObjectContainer container;
+	
 	ArrayList<GuiObject> objects = new ArrayList<GuiObject>();
 	ArrayList<GuiObject> additions = new ArrayList<GuiObject>();
 	ArrayList<GuiObject> removals = new ArrayList<GuiObject>();
@@ -20,6 +24,8 @@ public class GuiScreen extends GuiBase {
 		
 		super();
 		renderDefaultBackground = defaultBG;
+		container = new RenderObjectContainer();
+		container.view = false;
 	}
 	
 	public void init() {

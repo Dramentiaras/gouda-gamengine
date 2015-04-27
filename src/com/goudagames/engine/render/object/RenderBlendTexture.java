@@ -18,13 +18,12 @@ import com.goudagames.engine.render.Program;
 import com.goudagames.engine.system.GLSystem;
 import com.goudagames.engine.util.Vertex;
 
-public class RenderBlendTexture extends RenderBase {
+public class RenderBlendTexture extends RenderObject {
 
 	Vertex[] quad;
 	Vector2f[] texCoords;
 	public Vector2f size = new Vector2f();
 	static int vboi = -1;
-	public boolean view = true;
 	
 	boolean ignoreAlpha = false;
 	
@@ -158,6 +157,8 @@ public class RenderBlendTexture extends RenderBase {
 	
 	@Override
 	public void render() {
+		
+		super.render();
 		
 		program.use();
 		

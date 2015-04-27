@@ -3,8 +3,9 @@ package com.goudagames.engine.render.object;
 import org.lwjgl.util.vector.Vector2f;
 
 import com.goudagames.engine.assets.TextureLibrary;
+import com.goudagames.engine.render.Program;
 
-public class RenderString extends RenderBase {
+public class RenderString extends RenderObject {
 	
 	public float size, padding;
 	private float iconHeight, iconWidth;
@@ -13,7 +14,6 @@ public class RenderString extends RenderBase {
 	private String texture;
 	
 	public boolean centered = false;
-	public boolean view = true;
 	
 	public RenderString(String text, String texture) {
 		
@@ -21,6 +21,8 @@ public class RenderString extends RenderBase {
 	}
 	
 	public RenderString(String text, String texture, float iconWidth, float iconHeight) {
+		
+		program = Program.TEXTURE;
 		
 		this.text = text;
 		this.texture = texture;
@@ -53,6 +55,8 @@ public class RenderString extends RenderBase {
 
 	@Override
 	public void render() {
+		
+		super.render();
 		
 		float scale = size / iconWidth;
 		float width = iconWidth;

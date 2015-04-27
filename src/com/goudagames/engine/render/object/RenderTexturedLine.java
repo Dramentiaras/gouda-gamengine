@@ -5,20 +5,22 @@ import org.lwjgl.util.vector.Vector2f;
 import com.goudagames.engine.assets.Texture;
 import com.goudagames.engine.color.Color;
 import com.goudagames.engine.geometry.Line;
+import com.goudagames.engine.render.Program;
 import com.goudagames.engine.util.Vertex;
 
-public class RenderTexturedLine extends RenderBase {
+public class RenderTexturedLine extends RenderObject {
 
 	public Vector2f v0, v1;
 	public Color color1;
 	public float width = 1f;
-	public boolean view = true;
 	
 	Texture texture;
 	
 	public RenderTexturedLine(Vector2f v0, Vector2f v1, Texture texture) {
 		
 		super();
+		
+		program = Program.TEXTURE;
 		
 		this.texture = texture;
 		
@@ -30,6 +32,8 @@ public class RenderTexturedLine extends RenderBase {
 	public RenderTexturedLine(Line line, Texture texture) {
 		
 		super();
+		
+		program = Program.TEXTURE;
 		
 		this.texture = texture;
 		
@@ -50,6 +54,8 @@ public class RenderTexturedLine extends RenderBase {
 	
 	@Override
 	public void render() {
+		
+		super.render();
 		
 		Vector2f line = new Vector2f();
 		
