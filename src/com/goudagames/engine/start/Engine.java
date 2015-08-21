@@ -27,6 +27,7 @@ import com.goudagames.engine.util.Time;
 public class Engine {
 
 	private static GameState state;
+	private static String curState = "";
 	private static Loop loop;
 	private static float r, g, b, a;
 	
@@ -87,13 +88,14 @@ public class Engine {
 			Controllers.create();
 		
 			GLSystem.init();
-			ALSystem.initAL();
 			GuiHandler.init();
 			
 			for (AssetLoader loader : assetLoaders) {
 				
 				loader.load(true);
 			}
+			
+			ALSystem.initAL();
 			
 			setState(s);
 			
@@ -103,6 +105,7 @@ public class Engine {
 		}catch (Exception ex) {
 			
 			Log.log(Level.SEVERE, ExceptionUtil.getStackTrace(ex));
+			Log.saveLog();
 		}
 	}
 	
@@ -148,12 +151,18 @@ public class Engine {
 			state.destroy();
 		}
 		state = states.get(s);
+		curState = s;
 		state.init();
 	}
 	
 	public static GameState getState(String s) {
 		
 		return states.get(s);
+	}
+	
+	public static String getCurrentStateName() {
+		
+		return curState;
 	}
 	
 	public static void setClearColor(float red, float green, float blue, float alpha) {

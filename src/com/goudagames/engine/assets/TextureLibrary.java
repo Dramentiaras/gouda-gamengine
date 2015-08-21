@@ -81,8 +81,8 @@ public class TextureLibrary {
 		}
 		catch (Exception ex) {
 			
-			Log.log(Level.WARNING, "error loading texture: " + path);
-			Log.log(Level.WARNING, ExceptionUtil.getStackTrace(ex));
+			Log.log(Level.SEVERE, "Error loading texture: " + path);
+			Log.log(Level.SEVERE, ExceptionUtil.getStackTrace(ex));
 		}
 		
 		int id = GL11.glGenTextures();

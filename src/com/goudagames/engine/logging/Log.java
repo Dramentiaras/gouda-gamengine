@@ -1,6 +1,9 @@
 package com.goudagames.engine.logging;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.channels.FileChannel;
 import java.util.Calendar;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
@@ -14,14 +17,42 @@ public class Log {
 	private static boolean initiated = false;
 	
 	private static String path;
+	private static File tempFile;
+	
+	private static boolean save = false;
 	
 	public static void destroy() {
 		
-		/*File logFile = new File(path);
+		if (save) {
+			
+			saveLog();
+		}
+	}
+	
+	@SuppressWarnings("resource")
+	public static void saveLog() {
 		
-		if (logFile.exists()) {
-			logFile.delete();
-		}*/
+		try {
+			File dir = new File("logs/");
+			File file = new File(path);
+			
+			if (!file.exists()) {
+				
+				dir.mkdirs();
+				file.createNewFile();
+			}
+			
+			FileChannel src = new FileInputStream(tempFile).getChannel();
+			FileChannel dest = new FileOutputStream(file).getChannel();
+			dest.transferFrom(src, 0, src.size());
+			
+			src.close();
+			dest.close();
+		}
+		catch (Exception ex) {
+			
+			ex.printStackTrace();
+		}
 	}
 	
 	public static void init() {
@@ -35,22 +66,16 @@ public class Log {
 			path = String.format("logs/log-%02d-%02d-%02d_%02d.%02d.%02d.txt", Calendar.getInstance().get(Calendar.DATE), Calendar.getInstance().get(Calendar.MONTH) + 1,
 					Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE), Calendar.getInstance().get(Calendar.SECOND));
 			
-			File dir = new File("logs/");
-			File file = new File(path);
-			
-			if (!file.exists()) {
-				
-				dir.mkdirs();
-				file.createNewFile();
-			}
+			tempFile = File.createTempFile("gtopn-log", null);
+			tempFile.deleteOnExit();
 			
 			LogFormatter formatter = new LogFormatter();
 			
 			ConsoleHandler consoleHandler = new ConsoleHandler();
 			consoleHandler.setLevel(Level.ALL);
 			
-			FileHandler fileHandler = new FileHandler(path);
-			fileHandler.setLevel(Level.INFO);
+			FileHandler fileHandler = new FileHandler(tempFile.getPath());
+			fileHandler.setLevel(Level.ALL);
 			
 			logger.addHandler(fileHandler);
 			logger.addHandler(consoleHandler);
@@ -78,6 +103,10 @@ public class Log {
 	public static void log(Level level, String msg) {
 		
 		if (!initiated) return;
+		
+		if (level == Level.SEVERE) {
+			save = true;
+		}
 		
 		logger.log(level, msg);
 	}

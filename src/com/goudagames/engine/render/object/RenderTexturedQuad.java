@@ -10,6 +10,7 @@ import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector2f;
 
 import com.goudagames.engine.assets.Texture;
+import com.goudagames.engine.assets.TextureLibrary;
 import com.goudagames.engine.color.Color;
 import com.goudagames.engine.geometry.Rectangle;
 import com.goudagames.engine.render.Program;
@@ -24,6 +25,11 @@ public class RenderTexturedQuad extends RenderObject {
 	private Texture texture;
 	
 	private boolean setArray = false;
+	
+	public RenderTexturedQuad(String texture) {
+		
+		this(TextureLibrary.get(texture));
+	}
 	
 	public RenderTexturedQuad(Texture texture) {
 		
@@ -55,6 +61,11 @@ public class RenderTexturedQuad extends RenderObject {
 			GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, indexBuffer, GL15.GL_STATIC_DRAW);
 			GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
 		}
+	}
+	
+	public RenderTexturedQuad(String texture, Vertex[] quad) {
+		
+		this(TextureLibrary.get(texture), quad);
 	}
 	
 	public RenderTexturedQuad(Texture texture, Vertex[] quad) {

@@ -133,7 +133,7 @@ public class Input {
 		return Mouse.getDWheel();
 	}
 	
-	public static Vector2f mousePos() {
+	public static Vector2f getMousePosition() {
 		
 		return new Vector2f(Mouse.getX(), Mouse.getY());
 	}

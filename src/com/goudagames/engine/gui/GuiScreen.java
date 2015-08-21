@@ -96,7 +96,7 @@ public class GuiScreen extends GuiBase {
 			
 			o.update();
 			
-			Vector2f mPos = Input.mousePos();
+			Vector2f mPos = Input.getMousePosition();
 			
 			if (o.getBounds().isPointInside(mPos)) {
 			

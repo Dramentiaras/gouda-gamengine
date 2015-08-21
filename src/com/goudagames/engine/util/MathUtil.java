@@ -53,7 +53,17 @@ public class MathUtil {
 	 */
 	public static int floor(float f) {
 			
-		return (int)(f -= f % 1f);
+		return (int)(f - f % 1f);
+	}
+	
+	/**
+	 * Rounds the given number up to an int.
+	 * @param float
+	 * @returns the ceiled value
+	 */
+	public static int ceil(float f) {
+		
+		return (int)(f + (1f - f % 1f));
 	}
 
 	/**
