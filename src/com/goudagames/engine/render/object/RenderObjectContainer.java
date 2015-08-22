@@ -11,7 +11,9 @@ public class RenderObjectContainer {
 	
 	public float rotation = 0f;
 	public Vector2f offset = new Vector2f();
-	public Vector2f position = new Vector2f();
+	private Vector2f position = new Vector2f();
+	
+	public Vector2f absPosition = new Vector2f();
 	
 	public boolean view = true;
 	
@@ -25,6 +27,28 @@ public class RenderObjectContainer {
 		children.add(o);
 		o.parent = this;
 		o.view = view;
+	}
+	
+	public void setPosition(Vector2f position) {
+		this.position = position;
+	}
+	
+	public Vector2f getAbsolutePosition() {
+		
+		Vector2f result = new Vector2f();
+		if (parent != null) {
+			Vector2f.add(position, parent.getAbsolutePosition(), result);
+		}
+		else {
+			result = position;
+		}
+		
+		return result;
+	}
+	
+	public Vector2f getPosition() {
+		
+		return position;
 	}
 	
 	public void remove(RenderObject o) {
@@ -43,7 +67,6 @@ public class RenderObjectContainer {
 		if (parent != null) {
 			
 			rotation += parent.rotation;
-			Vector2f.add(position, parent.position, position);
 		}
 		
 		for (RenderObject child : children) {

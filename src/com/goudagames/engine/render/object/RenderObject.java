@@ -27,13 +27,13 @@ public class RenderObject extends RenderObjectContainer {
 		model = new Matrix4f();
 
 		offset = new Vector2f(0f, 0f);
-		position = new Vector2f();
+		setPosition(new Vector2f());
 		color = new Color();
 	}
 	
 	public void applyTransformations() {
 		
-		translate(position);
+		translate(getAbsolutePosition());
 		rotate(rotation);
 		translate(offset);
 	}
@@ -72,7 +72,7 @@ public class RenderObject extends RenderObjectContainer {
 	protected void setup(Vertex[] verticies) {
 		
 		program.use();
-		position = new Vector2f(Math.round(position.x), Math.round(position.y));
+		setPosition(new Vector2f(Math.round(getPosition().x), Math.round(getPosition().y)));
 		
 		FloatBuffer vertexBuffer = BufferUtils.createFloatBuffer(verticies.length * Vertex.elementCount);
 		for (int i = 0; i < verticies.length; i++) {

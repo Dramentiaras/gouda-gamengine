@@ -109,6 +109,6 @@ public class RenderQuad extends RenderObject {
 	
 	public Rectangle getBounds() {
 		
-		return new Rectangle(position.x, position.y, size.x * (size.x < 0 ? -1:1), size.y * (size.y < 0 ? -1:1));
+		return new Rectangle(getAbsolutePosition().x, getAbsolutePosition().y, size.x * (size.x < 0 ? -1:1), size.y * (size.y < 0 ? -1:1));
 	}
 }

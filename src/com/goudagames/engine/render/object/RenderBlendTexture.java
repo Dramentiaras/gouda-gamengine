@@ -164,7 +164,7 @@ public class RenderBlendTexture extends RenderObject {
 		
 		quad[0].setColor(color); quad[1].setColor(color); quad[2].setColor(color); quad[3].setColor(color);
 		
-		position = new Vector2f(Math.round(position.x), Math.round(position.y));
+		Vector2f position = new Vector2f(Math.round(getAbsolutePosition().x), Math.round(getAbsolutePosition().y));
 		
 		FloatBuffer vertexBuffer = BufferUtils.createFloatBuffer(quad.length * (Vertex.elementCount + Vertex.textureElementCount));
 		for (int i = 0; i < quad.length; i++) {

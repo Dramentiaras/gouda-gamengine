@@ -56,7 +56,7 @@ public class RenderCircleOutline extends RenderObject {
 			v.setColor(color);
 		}
 		
-		translate(position);
+		translate(getAbsolutePosition());
 		scale(new Vector2f(radius * 2f, radius * 2f));
 		
 		setup(circle);

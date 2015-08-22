@@ -69,7 +69,7 @@ public class GuiScreen extends GuiBase {
 		RenderQuad quad = new RenderQuad();
 		
 		quad.view = false;
-		quad.position = new Vector2f(Display.getWidth() / 2f, Display.getHeight() / 2f);
+		quad.setPosition(new Vector2f(Display.getWidth() / 2f, Display.getHeight() / 2f));
 		quad.size = new Vector2f(Display.getWidth(), Display.getHeight());
 		quad.color = new Color(0f, 0f, 0f, 0.5f);
 		

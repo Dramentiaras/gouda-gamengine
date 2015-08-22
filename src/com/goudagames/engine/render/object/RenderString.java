@@ -62,7 +62,7 @@ public class RenderString extends RenderObject {
 		float width = iconWidth;
 		float height = iconHeight;
 		
-		Vector2f pos = new Vector2f(position.x, position.y);
+		Vector2f pos = new Vector2f(getAbsolutePosition().x, getAbsolutePosition().y);
 		
 		if (centered) {
 			
