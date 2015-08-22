@@ -17,6 +17,11 @@ public class Loop {
 		this.fps = fps;
 	}
 	
+	public int getFPS() {
+		
+		return fps;
+	}
+	
 	public void start() {
 	
 		running = true;

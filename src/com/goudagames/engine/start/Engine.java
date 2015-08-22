@@ -34,6 +34,12 @@ public class Engine {
 	private static ArrayList<AssetLoader> assetLoaders = new ArrayList<AssetLoader>();
 	
 	private static HashMap<String, GameState> states = new HashMap<String, GameState>();
+	private static boolean fixedDelta = true;
+	
+	public static void useFixedDelta(boolean fixed) {
+		
+		fixedDelta = fixed;
+	}
 	
 	public static void loadState(String name, GameState state) {
 		
@@ -115,7 +121,12 @@ public class Engine {
 		
 		if (!GuiHandler.INSTANCE.isStatePaused()) {
 			
-			state.update(Time.delta());
+			if (fixedDelta) {
+				state.update(1f/loop.getFPS());
+			}
+			else {
+				state.update(Time.delta());	
+			}
 		}
 		
 		renderState();
