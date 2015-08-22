@@ -9,38 +9,52 @@ import com.goudagames.engine.util.Direction;
 
 public class Collision {
 
-	public static boolean[] getCollisionDirections(Rectangle r1, Rectangle r2) {
-		
-		boolean[] result = new boolean[4];
+	public static Direction getCollisionDirection(Rectangle r1, Rectangle r2) {
 		
 		if (r1.left() > r2.left() && r1.left() < r2.right()) {
 			
 			if (r1.up() > r2.down() && r1.up() < r2.up()) {
 				
-				result[Direction.LEFT.id] = true;
-				result[Direction.UP.id] = true;
+				if (r1.up() - r2.down() < r2.left() - r1.left()) {
+					return Direction.UP;
+				}
+				else {
+					return Direction.LEFT;
+				}
 			}
 			else if (r1.down() > r2.down() && r1.down() < r2.up()) {
 				
-				result[Direction.LEFT.id] = true;
-				result[Direction.DOWN.id] = true;
+				if (r2.up() - r1.down() > r2.left() - r1.left()) {
+					return Direction.DOWN;
+				}
+				else {
+					return Direction.LEFT;
+				}
 			}
 		}
 		else if (r1.right() > r2.left() && r1.right() < r2.right()) {
 			
 			if (r1.up() > r2.down() && r1.up() < r2.up()) {
 				
-				result[Direction.RIGHT.id] = true;
-				result[Direction.UP.id] = true;
+				if (r1.up() - r2.down() < r1.right() - r2.right()) {
+					return Direction.UP;
+				}
+				else {
+					return Direction.RIGHT;
+				}
 			}
 			else if (r1.down() > r2.down() && r1.down() < r2.up()) {
 				
-				result[Direction.RIGHT.id] = true;
-				result[Direction.DOWN.id] = true;
+				if (r2.up() - r1.down() > r1.right() - r2.right()) {
+					return Direction.DOWN;
+				}
+				else {
+					return Direction.RIGHT;
+				}
 			}
 		}
 		
-		return result;
+		return null;
 	}
 	
 	public static Vector3f isLinesIntersecting(Line l1, Line l2) {
