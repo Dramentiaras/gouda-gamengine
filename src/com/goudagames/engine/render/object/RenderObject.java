@@ -45,7 +45,6 @@ public class RenderObject extends RenderObjectContainer {
 	
 	public void rotate(float angle) {
 		
-		rotation += angle;
 		model.rotate(angle, new Vector3f(0f, 0f, 1f));
 	}
 	

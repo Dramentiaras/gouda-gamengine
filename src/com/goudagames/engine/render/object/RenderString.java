@@ -58,7 +58,7 @@ public class RenderString extends RenderObject {
 		
 		super.render();
 		
-		float scale = size / iconWidth;
+		float scale = size / iconHeight;
 		float width = iconWidth;
 		float height = iconHeight;
 		

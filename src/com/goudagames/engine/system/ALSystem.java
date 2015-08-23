@@ -136,9 +136,20 @@ public class ALSystem {
 		play(sound, 1f);
 	}
 	
+	public static boolean isPlaying(String sound) {
+		
+		int id = ids.get(sound);
+		
+		int state = AL10.alGetSourcei(sources.get(id), AL10.AL_SOURCE_STATE);
+		
+		return state == AL10.AL_PLAYING;
+	}
+	
 	public static void play(String sound, float gain) {
 		
 		if (!initiated || MUTED) return;
+		
+		if (isPlaying(sound)) return;
 		
 		int id = ids.get(sound);
 		
